@@ -1,0 +1,12 @@
+{
+  "name": "back-removeBG",
+  "version": "1.0.0",
+  "description": "Example of a Python Flask API service with traditional Serverless Framework",
+  "author": "",
+  "scripts": {
+    "dep": "robocopy venv\\Lib\\site-packages python /E /NFL /NDL /NP && powershell -command \"Compress-Archive .\\python requirements.zip\" ",
+    "deploy": "npm run dep && sls deploy && del requirements.zip && rmdir /s /q python"
+  }
+}
+
+

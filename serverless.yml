@@ -1,0 +1,43 @@
+service: back-removeBG
+
+frameworkVersion: '3'
+
+# && powershell -command \"Compress-Archive .\\node_modules -Update requirements.zip\"
+package:
+  patterns:
+    - '!node_modules/**' #excluimos la carpeta node_modules
+    - '!requirements.zip' #excluimos el archivo creado para la layer
+    - '!venv/**'
+    - '!requirements.txt'
+    - '!__pycache__/**'
+    - '!python/**'
+    - '!package-lock.json'
+    - '!package.json'
+    - '!README.md'
+
+provider:
+  name: aws
+  region: us-west-2
+  runtime: python3.10
+  stage: dev
+
+layers:
+  flask:
+    package:
+      artifact: requirements.zip
+    name: ApiFlask
+    description: Es un layer con las dependencias de una api con Flask
+    compatibleRuntimes:
+      - python3.10
+    compatibleArchitectures: 
+      - x86_64
+
+functions:
+  api:
+    handler: app.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+    layers:
+      - !Ref FlaskLambdaLayer
+
