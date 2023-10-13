@@ -1,17 +1,10 @@
 import awsgi
 from flask import Flask, jsonify, make_response
+from server.server import router
 
 app = Flask(__name__)
 
-
-@app.route("/")
-def hello_from_root():
-    return jsonify(message='Hello from root!')
-
-
-@app.route("/hello")
-def hello():
-    return jsonify(message='Hello from path!')
+app.register_blueprint(router)
 
 
 @app.errorhandler(404)
@@ -22,3 +15,5 @@ def resource_not_found(e):
 def handler(event, context):
     return awsgi.response(app, event, context, base64_content_types={"image/png"})
 
+if __name__ == "__main__":
+    app.run(debug=True)

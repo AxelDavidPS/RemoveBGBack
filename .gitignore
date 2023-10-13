@@ -1,3 +1,4 @@
 .serverless/
 venv/
 git_credential.txt
+__pycache__/
