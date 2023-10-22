@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from controllers.imgs import Img_controller
 
 bp_img = Blueprint('img', __name__)

@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint
 from routes.imgs import bp_img
 
 router = Blueprint('APIprefix',__name__,url_prefix="/api/v1")
